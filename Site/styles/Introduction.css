@@ -1,0 +1,186 @@
+:root {
+	--forest-deep: #040d04;
+	--gold: #c9a84c;
+	--gold-light: #e8c96a;
+	--forest-glow: #6ddd6d;
+	--cream: #f8f3e6;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	font-family: 'Lora', Georgia, serif;
+	background: var(--forest-deep);
+	background-image: url("./images/background.gif");
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+}
+
+/* Dark overlay */
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	background: rgba(4, 13, 4, 0.65);
+	z-index: 0;
+}
+
+/* Vignette */
+body::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%);
+	pointer-events: none;
+	z-index: 1;
+}
+
+/* ── CENTER CARD ── */
+.portal {
+	position: relative;
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 40px;
+	text-align: center;
+	animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; transform: translateY(20px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+.portal-eyebrow {
+	font-family: 'Cinzel', serif;
+	font-size: 12px;
+	letter-spacing: 6px;
+	text-transform: uppercase;
+	color: var(--forest-glow);
+	opacity: 0.8;
+}
+
+.portal-title {
+	font-family: 'Cinzel Decorative', cursive;
+	font-size: clamp(32px, 6vw, 72px);
+	background: linear-gradient(135deg, var(--gold-pale, #f5e4a0), var(--gold), var(--forest-glow), var(--gold-light));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	background-size: 300%;
+	animation: shimmer 5s ease-in-out infinite;
+	line-height: 1.1;
+	letter-spacing: 2px;
+}
+
+@keyframes shimmer {
+	0%,100% { background-position: 0%; }
+	50% { background-position: 100%; }
+}
+
+.divider {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	width: 400px;
+	max-width: 80vw;
+}
+.divider::before, .divider::after {
+	content: '';
+	flex: 1;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
+}
+.divider-gem {
+	color: var(--gold);
+	font-size: 14px;
+}
+
+/* ── BUTTERFLY LINK ── */
+.butterfly-wrap {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.butterfly-link {
+	display: block;
+	position: relative;
+}
+
+#papillon {
+	width: 80px;
+	height: 80px;
+	animation: flutter 20s infinite ease-in-out;
+	filter: drop-shadow(0 0 16px rgba(109,221,109,0.6)) drop-shadow(0 0 32px rgba(201,168,76,0.3));
+	transition: filter 0.3s ease;
+}
+
+.butterfly-link:hover #papillon {
+	filter: drop-shadow(0 0 24px rgba(109,221,109,0.9)) drop-shadow(0 0 48px rgba(201,168,76,0.5));
+}
+
+@keyframes flutter {
+	0%   { transform: translate(0, 0) scale(1); }
+	8%   { transform: translate(180px, -60px) scale(1.4); }
+	16%  { transform: translate(-80px, 40px) scale(1.1) rotate(15deg); }
+	24%  { transform: translate(120px, 80px) scale(0.9) rotate(-10deg); }
+	32%  { transform: translate(-40px, -80px) scale(1.3); }
+	40%  { transform: translate(200px, 20px) scale(1) rotate(8deg); }
+	48%  { transform: translate(60px, 100px) scale(1.2); }
+	56%  { transform: translate(-120px, -30px) scale(0.85); }
+	64%  { transform: translate(90px, -90px) scale(1.15) rotate(-6deg); }
+	72%  { transform: translate(-60px, 60px) scale(1); }
+	80%  { transform: translate(140px, -20px) scale(1.1); }
+	88%  { transform: translate(-30px, -50px) scale(0.9); }
+	100% { transform: translate(0, 0) scale(1); }
+}
+
+.enter-hint {
+	font-family: 'Cinzel', serif;
+	font-size: 11px;
+	letter-spacing: 4px;
+	text-transform: uppercase;
+	color: rgba(248,243,230,0.4);
+	animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+	0%, 100% { opacity: 0.4; }
+	50% { opacity: 0.9; }
+}
+
+/* Floating golden particles */
+.particles {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 2;
+}
+.particle {
+	position: absolute;
+	width: 3px; height: 3px;
+	border-radius: 50%;
+	background: var(--gold);
+	opacity: 0;
+	animation: rise var(--dur) var(--delay) infinite ease-in;
+}
+@keyframes rise {
+	0% { transform: translateY(0) translateX(0); opacity: 0; }
+	20% { opacity: 0.6; }
+	80% { opacity: 0.2; }
+	100% { transform: translateY(-100vh) translateX(var(--drift)); opacity: 0; }
+}
