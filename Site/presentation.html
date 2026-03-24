@@ -9,7 +9,6 @@
 	<link href="./styles/presentation.css" rel="stylesheet">
 </head>
 <body>
-
     <header>
         <div class="header-brand">
             <div class="eyebrow">Parc d'Attractions • Orléans</div>
@@ -166,16 +165,6 @@
             <img alt="IUT" src="./images/logo-iut.png">
         </div>
     </footer>
-
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((e, i) => {
-                if (e.isIntersecting) {
-                    setTimeout(() => e.target.classList.add('visible'), i * 80);
-                }
-            });
-        }, { threshold: 0.08 });
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    </script>
+	<script src="./scripts/presentation.js"></script>
 </body>
 </html>
