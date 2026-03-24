@@ -1,7 +1,6 @@
 # TheEnchantedForest
-TheEnchantedForest est un parc d'attraction **fictif** dans lequel petits et grands peuvent trouver le bonheur.
+TheEnchantedForest est un parc d’attractions **fictif** conçu pour émerveiller aussi bien les enfants que les adultes.
 
-Ce projet est la création d'un site réaliser par mes soins en debut de BUT Informatique, ce qui montre mes bases en
-**HTML**, **CSS** et en **Design**.
+Ce projet correspond à la création d’un site web que j’ai réalisé au début de mon BUT Informatique. Il met en avant mes premières compétences en **HTML**, **CSS** ainsi qu’en **Design**.
 
-De plus, j'ai rajouté un petit peu de **javascript** ainsi que le css et le html qui l'accompagne il y a peu afin de rendre le site web plus moderne et plus dynamique.
+Récemment, j’ai enrichi ce site en y intégrant du **JavaScript**, ainsi que des améliorations en HTML et CSS, afin de le rendre plus moderne, interactif et dynamique.
