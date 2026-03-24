@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>The Enchanted Forest — Réservation & Contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-deep: #0a1a0a;
+            --forest-dark: #0f2a0f;
+            --forest-mid: #1a4a1a;
+            --forest-green: #2d7a2d;
+            --forest-light: #4aad4a;
+            --forest-glow: #6ddd6d;
+            --gold: #c9a84c;
+            --gold-light: #e8c96a;
+            --gold-pale: #f5e4a0;
+            --cream: #f8f3e6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background: var(--forest-deep);
+            color: var(--cream);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(13,60,13,0.5) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 80%, rgba(10,40,10,0.4) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── HEADER ── */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 36px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+            background: linear-gradient(180deg, rgba(5,15,5,0.98) 0%, rgba(10,26,10,0.85) 100%);
+        }
+
+        .header-brand .eyebrow {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 5px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            opacity: 0.7;
+        }
+
+        header h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: clamp(16px, 2.2vw, 28px);
+            background: linear-gradient(135deg, var(--gold-pale), var(--gold), var(--forest-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200%;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        header p {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: rgba(248,243,230,0.45);
+            margin-top: 4px;
+        }
+
+        @keyframes shimmer {
+            0%,100% { background-position: 0%; }
+            50% { background-position: 100%; }
+        }
+
+        .logo-wrap {
+            position: relative;
+        }
+        .logo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--gold), var(--forest-light), var(--gold-light), var(--forest-glow), var(--gold));
+            animation: spin 8s linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #logo {
+            position: relative;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            z-index: 1;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 40px;
+            background: rgba(5,15,5,0.92);
+            border-bottom: 1px solid rgba(201,168,76,0.12);
+        }
+
+        nav a {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(248,243,230,0.6);
+            text-decoration: none;
+            padding: 10px 28px;
+            border-radius: 2px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        nav a:hover { color: var(--gold-light); border-color: rgba(201,168,76,0.3); }
+        nav a.ici { color: var(--gold); border-color: rgba(201,168,76,0.35); background: rgba(201,168,76,0.05); }
+
+        /* ── MAIN LAYOUT ── */
+        main {
+            position: relative;
+            z-index: 5;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* ── FORM SIDE ── */
+        .form-side {
+            padding: 70px 60px;
+            border-right: 1px solid rgba(201,168,76,0.1);
+        }
+
+        .form-header {
+            margin-bottom: 44px;
+        }
+
+        .form-eyebrow {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--forest-glow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .form-eyebrow::after {
+            content: '';
+            flex: 0 0 50px;
+            height: 1px;
+            background: var(--forest-glow);
+            opacity: 0.35;
+        }
+
+        .form-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: clamp(22px, 2.5vw, 34px);
+            color: var(--cream);
+            line-height: 1.2;
+        }
+
+        /* Form fields */
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 0;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(201,168,76,0.7);
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(201,168,76,0.15);
+            border-radius: 2px;
+            color: var(--cream);
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+            appearance: none;
+        }
+
+        input:focus, textarea:focus {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(201,168,76,0.45);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.07);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(248,243,230,0.25);
+            font-style: italic;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        /* Checkbox */
+        .checkbox-field {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 13px;
+            color: rgba(248,243,230,0.6);
+            line-height: 1.6;
+            font-family: 'Lora', serif;
+        }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            flex: 2;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--forest-deep);
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(201,168,76,0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(201,168,76,0.35);
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 16px 20px;
+            background: transparent;
+            color: rgba(248,243,230,0.45);
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.25);
+            color: rgba(248,243,230,0.7);
+        }
+
+        /* ── CONTACT SIDE ── */
+        .contact-side {
+            padding: 70px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .contact-header {
+            margin-bottom: 8px;
+        }
+
+        .contact-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: clamp(20px, 2vw, 28px);
+            color: var(--cream);
+            margin-top: 14px;
+        }
+
+        .contact-intro {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(248,243,230,0.6);
+            font-style: italic;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            background: rgba(201,168,76,0.04);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-info strong {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(201,168,76,0.6);
+        }
+
+        .contact-info a, .contact-info span {
+            font-size: 15px;
+            color: rgba(248,243,230,0.75);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-info a:hover { color: var(--gold-light); }
+
+        /* Map */
+        .map-wrap {
+            border: 1px solid rgba(201,168,76,0.15);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        .map-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, rgba(201,168,76,0.2), transparent) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .map-wrap iframe {
+            display: block;
+            width: 100%;
+            height: 220px;
+            border: none;
+            filter: grayscale(80%) brightness(0.6) sepia(20%);
+            transition: filter 0.4s ease;
+        }
+        .map-wrap:hover iframe {
+            filter: grayscale(30%) brightness(0.9);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            position: relative;
+            z-index: 10;
+            padding: 36px 60px;
+            background: rgba(5,10,5,0.98);
+            border-top: 1px solid rgba(201,168,76,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-copy {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(248,243,230,0.3);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .footer-right a {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(201,168,76,0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-right a:hover { color: var(--gold); }
+        footer img { height: 38px; opacity: 0.45; }
+
+        /* Fade in */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            main { grid-template-columns: 1fr; }
+            .form-side, .contact-side { padding: 50px 24px; }
+            .form-side { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.1); }
+            .field-row { grid-template-columns: 1fr; }
+            header, footer { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-brand">
+            <div class="eyebrow">Réservation & Contact</div>
+            <h1>The Enchanted Forest</h1>
+            <p>Inscrivez-vous et vivez des expériences inoubliables</p>
+        </div>
+        <div class="logo-wrap">
+            <a href="main.html"><img alt="logo" id="logo" src="./images/logo.png"></a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="./main.html">Accueil</a>
+        <a href="./presentation.html">Présentation</a>
+        <a class="ici" href="./formulaire.html">Contact</a>
+    </nav>
+
+    <main>
+        <!-- FORM -->
+        <div class="form-side fade-up">
+            <div class="form-header">
+                <div class="form-eyebrow">Formulaire d'inscription</div>
+                <h2 class="form-title">Réservez votre aventure</h2>
+            </div>
+
+            <form action="https://example.com/inscription" method="post">
+                <div class="field-row">
+                    <div class="field">
+                        <label for="nom">Nom</label>
+                        <input id="nom" name="nom" type="text" required placeholder="Votre nom">
+                    </div>
+                    <div class="field">
+                        <label for="prenom">Prénom</label>
+                        <input id="prenom" name="prenom" type="text" required placeholder="Votre prénom">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="email">Adresse e-mail</label>
+                    <input id="email" name="email" type="email" required placeholder="exemple@domaine.com">
+                </div>
+
+                <div class="field">
+                    <label for="telephone">Numéro de téléphone</label>
+                    <input id="telephone" name="telephone" type="tel" required
+                           placeholder="06 12 34 56 78"
+                           pattern="^0[1-9]([ ]?[0-9]{2}){4}$">
+                </div>
+
+                <div class="field">
+                    <label for="adresse">Adresse postale</label>
+                    <textarea id="adresse" name="adresse" rows="3"
+                              placeholder="Votre adresse complète" required></textarea>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="reservation">Date de réservation</label>
+                        <input id="reservation" name="reservation" type="text"
+                               required placeholder="JJ/MM/AAAA">
+                    </div>
+                    <div class="field">
+                        <label for="message">Type de réservation</label>
+                        <input id="message" name="message" type="text"
+                               placeholder="Choisissez…" list="types_de_reservation">
+                        <datalist id="types_de_reservation">
+                            <option value="Ticket de journée">
+                            <option value="Ticket de nuit">
+                            <option value="Réservation 3 jours">
+                            <option value="Réservation semaine">
+                            <option value="Pass pour l'année">
+                        </datalist>
+                    </div>
+                </div>
+
+                <div class="checkbox-field">
+                    <input id="consentement" name="consentement" type="checkbox" required>
+                    <label class="checkbox-label" for="consentement">
+                        J'accepte les termes et conditions d'utilisation du parc The Enchanted Forest.
+                    </label>
+                </div>
+
+                <div class="btn-row">
+                    <button type="submit" class="btn-primary">S'inscrire & Réserver →</button>
+                    <button type="reset" class="btn-secondary">Réinitialiser</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="contact-side fade-up">
+            <div class="contact-header">
+                <div class="form-eyebrow">Coordonnées</div>
+                <h2 class="contact-title">Nous contacter</h2>
+            </div>
+
+            <p class="contact-intro">
+                Vous souhaitez nous rejoindre pour une question, une demande spéciale
+                ou simplement pour en savoir plus ? Voici comment nous joindre.
+            </p>
+
+            <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <div class="contact-info">
+                    <strong>Téléphone</strong>
+                    <span>04 92 03 82 02</span>
+                    <span style="font-size:13px;color:rgba(248,243,230,0.4);">Fixe : 02 78 12 89 02</span>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div class="contact-info">
+                    <strong>E-mail</strong>
+                    <a href="mailto:ez@gmail.com">ez@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div class="contact-info">
+                    <strong>Adresse</strong>
+                    <a href="https://www.google.fr/maps/place/For%C3%AAt+d'Orl%C3%A9ans/@47.8725558,2.4117761,18.17z" target="_blank">
+                        45460 Bouzy-la-Forêt
+                    </a>
+                    <span style="font-size:13px;color:rgba(248,243,230,0.4);">Forêt d'Orléans, Loiret</span>
+                </div>
+            </div>
+
+            <div class="map-wrap">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11476.314149024553!2d2.1242!3d47.9476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1609459200000"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-copy">© 2024 The Enchanted Forest — Tous droits réservés</div>
+        <div class="footer-right">
+            <span style="color:rgba(248,243,230,0.25);font-family:'Cinzel',serif;font-size:11px;">Sara Tikkent · Delval Killian</span>
+            <a href="">Rapport</a>
+            <img alt="IUT" src="./images/logo-iut.png">
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.05 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
